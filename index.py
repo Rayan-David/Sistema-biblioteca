@@ -13,4 +13,13 @@ nome_livro = st.text_input("Nome do Livro")
 autor = st.text_input("Autor")
 
 #Botão cadastrar
-st.button("Cadastrar Livro")
+if st.button("Cadastrar Livro"):
+
+    if nome_livro != "" and autor != "":
+        livro = {
+            "nome": nome_livro,
+            "Autor": autor,
+            "Emprestado": False
+        }
+        st.session_state.livros.append(livro)
+        st.success("Livro cadastrado com sucesso!")      
