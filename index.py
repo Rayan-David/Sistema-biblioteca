@@ -23,3 +23,34 @@ if st.button("Cadastrar Livro"):
         }
         st.session_state.livros.append(livro)
         st.success("Livro cadastrado com sucesso!")      
+
+#Listar livros
+st.subheader("Lista de Livros")
+if len(st.session_state.livros) == 0:
+    st.info("Nenhum livro cadastrado")
+else:
+    for i, livro in enumerate(st.session_state.livros):
+        st.write(f"{livro['nome']}")
+        st.write(f"Autor: {livro['Autor']}")
+        
+        if livro["Emprestado"] == False:
+            st.success("Disponível")
+        else:
+            st.error("Emprestado")
+            
+        col1, col2 = st.columns(2)
+        
+        #Emprestimo
+        with col1:
+                if st.button("Emprestar", key=f"emp{i}"):
+
+                    st.session_state.livros[i]["Emprestado"] = True
+                    
+                    st.rerun()
+        with col2:
+                if st.button("Devolver", key=f"dev{i}"):
+
+                    st.session_state.livros[i]["Emprestado"] = False
+                    
+                    st.rerun()
+        st.divider()
